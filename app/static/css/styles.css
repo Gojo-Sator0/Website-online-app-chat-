@@ -1,0 +1,54 @@
+
+.navbar {
+    background-color: red; /* Красный фон для navbar */
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+    color: white !important; /* Белый текст для ссылок и бренда */
+}
+
+.navbar .nav-link:hover {
+    color: lightgray !important; /* Светло-серый текст при наведении */
+}
+
+.chat-sidebar {
+    background-color: #f8f9fa; /* Светлый фон для боковой панели */
+    height: calc(100vh - 56px); /* Высота экрана минус высота navbar */
+    overflow-y: auto; /* Прокрутка для длинных списков */
+}
+
+.chat-window {
+    height: calc(100vh - 56px); /* Высота экрана минус высота navbar */
+    overflow-y: auto; /* Прокрутка сообщений */
+    background-color: #fff; /* Белый фон для чата */
+    border-left: 1px solid #ddd; /* Разделительная линия */
+}
+
+.chat-message {
+    position: sticky;
+    bottom: 0;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.navbar .profile-icon {
+    width: 24px;
+    height: 24px;
+    background: transparent; /* Прозрачный фон */
+    border-radius: 50%; /* Закругленные края */
+    margin-left: 10px; /* Отступ слева */
+}
+
+.profile-icon {
+    width: 40px;                /* Увеличиваем размер иконки для чата */
+    height: 40px;               /* Увеличиваем размер иконки для чата */
+    border-radius: 50%;         /* Закругляем иконки */
+    object-fit: cover;          /* Подгоняем изображение под круглый контейнер */
+    margin-right: 10px;         /* Отступ между иконкой и текстом */
+}
+
+.navbar .login-links {
+    margin-left: 15px; /* Отступ между иконкой профиля и ссылками */
+}

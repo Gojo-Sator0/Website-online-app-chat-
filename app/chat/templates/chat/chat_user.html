@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <!-- Боковая панель выбора чатов -->
+        <div class="col-md-3 chat-sidebar p-3">
+            <h5>Chats</h5>
+            <div class="chat-item d-flex align-items-center mb-3 p-2 border rounded">
+                <img src="{% static 'images/profile-icon.png' %}" alt="User 1" class="profile-icon rounded-circle">
+                <div class="ms-3">
+                    <div class="username fw-bold">User 1</div>
+                    <div class="last-message text-muted">Hey, how are you?</div>
+                </div>
+            </div>
+            <div class="chat-item d-flex align-items-center mb-3 p-2 border rounded">
+                <img src="{% static 'images/profile-icon.png' %}" alt="User 2" class="profile-icon rounded-circle">
+                <div class="ms-3">
+                    <div class="username fw-bold">User 2</div>
+                    <div class="last-message text-muted">Good morning!</div>
+                </div>
+            </div>
+            <div class="chat-item d-flex align-items-center mb-3 p-2 border rounded">
+                <img src="{% static 'images/profile-icon.png' %}" alt="User 3" class="profile-icon rounded-circle">
+                <div class="ms-3">
+                    <div class="username fw-bold">User 3</div>
+                    <div class="last-message text-muted">Let's meet up later.</div>
+                </div>
+            </div>
+            <div class="chat-item d-flex align-items-center mb-3 p-2 border rounded">
+                <img src="{% static 'images/profile-icon.png' %}" alt="User 4" class="profile-icon rounded-circle">
+                <div class="ms-3">
+                    <div class="username fw-bold">User 4</div>
+                    <div class="last-message text-muted">See you soon!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Окно чата -->
+        <div class="col-md-9 chat-window p-3">
+            <h5>Chat Room</h5>
+            <div class="chat-messages mb-4">
+                <div class="message mb-2">
+                    <strong>User 1:</strong> Hello!
+                </div>
+                <div class="message mb-2">
+                    <strong>User 2:</strong> Hi, how are you?
+                </div>
+                <div class="message mb-2">
+                    <strong>User 1:</strong> I'm fine, thank you!
+                </div>
+            </div>
+
+            <!-- Поле ввода сообщения -->
+            <div class="chat-message">
+                <form>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Type your message..." required>
+                        <button class="btn btn-primary" type="submit">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
