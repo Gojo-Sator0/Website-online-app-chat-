@@ -12,12 +12,18 @@
 <div class="profile-container mx-auto mt-4 p-4 border rounded shadow" style="max-width: 600px; background-color: #fff; border-color: #ddd;">
     <h5 class="mb-4 text-center">Profile Details</h5>
     <ul class="list-group mb-4">
+        <li class="list-group-item"><strong>Login:</strong> {{ user.login }}</li>
         <li class="list-group-item"><strong>First Name:</strong> {{ user.first_name }}</li>
         <li class="list-group-item"><strong>Last Name:</strong> {{ user.last_name }}</li>
-        <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
         <li class="list-group-item"><strong>Phone Number:</strong> {{ user.profile.phone_number }}</li>
     </ul>
     <a href="*" class="btn btn-primary mt-3 w-100">Edit Profile</a>
+
+    <!-- Кнопка выхода -->
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger mt-3 w-100">Logout</button>
+    </form>
 </div>
 
 {% endblock %}
