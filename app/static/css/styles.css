@@ -52,3 +52,14 @@
 .navbar .login-links {
     margin-left: 15px; /* Отступ между иконкой профиля и ссылками */
 }
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(100px); /* Увеличил сдвиг */
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
