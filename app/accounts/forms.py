@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 
 from accounts.models import User
 
@@ -38,4 +38,17 @@ class UserRegistrationForm(UserCreationForm):
     phone_number = forms.CharField()
     password1 = forms.CharField()
     password2 = forms.CharField()
-    
+
+class UserProfileForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ['image', 'first_name', 'last_name', 'username', 'phone_number']
+        widgets = {
+            'image': forms.ClearableFileInput(attrs={'required': False}),
+            'first_name': forms.TextInput(),
+            'last_name': forms.TextInput(),
+            'username': forms.TextInput(),
+            'phone_number': forms.TextInput(),
+        }
+
+        
