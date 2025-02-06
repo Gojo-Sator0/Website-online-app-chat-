@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import auth
-from accounts.forms import UserLoginForm
+from accounts.forms import UserLoginForm, UserRegistrationForm
 # Create your views here.
 
 def login_view(request):
@@ -24,10 +24,24 @@ def login_view(request):
     return render(request, 'accounts/login.html', context)
 
 def register_view(request):
-    return render(request, 'accounts/register.html')
+    if request.method == 'POST':
+        form = UserRegistrationForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            user = form.isinstance
+            auth.login(request, user)
+            return HttpResponseRedirect(reverse('main:index'))
+    else:
+        form = UserRegistrationForm()
+        
+    context = {
+        'form': form
+    }
+    return render(request, 'accounts/register.html', context)
 
 def profile_view(request):
     return render(request, 'accounts/profile.html')
 
 def logout_view(request):
-    return render(request, 'accounts/logout.html')
+    auth.logout(request)
+    return redirect(reverse('main:index'))

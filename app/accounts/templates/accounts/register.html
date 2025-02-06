@@ -4,42 +4,75 @@
 <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="card p-4 shadow-lg" style="width: 100%; max-width: 600px;">
         <h2 class="text-center mb-4">Register</h2>
-        <form method="post" class="row g-3">
+        <form action="{% url "accounts:register" %}" method="post" class="row g-3">
             {% csrf_token %}
 
             <!-- Имя и Фамилия в одной строке -->
             <div class="col-md-6">
-                <label for="first_name" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter your first name" required>
+                <label for="id_first_name" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="id_first_name" 
+                value="{% if form.first_name.value %}{{form.first_name.value}}{% endif %}"
+                name="first_name" 
+                placeholder="Enter your first name" required>
+                {% if form.first_name.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show">{{form.firs_name.errors}}</div>
+                {% endif %}
             </div>
             <div class="col-md-6">
-                <label for="last_name" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter your last name" required>
+                <label for="id_last_name" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="id_last_name" 
+                value="{% if form.last_name.value %}{{form.last_name.value}}{% endif %}"
+                name="last_name" 
+                placeholder="Enter your last name" required>
+                {% if form.last_name.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show">{{form.last_name.errors}}</div>
+                {% endif %}
             </div>
 
             <!-- Имя пользователя -->
             <div class="col-md-6">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+                <label for="id_username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="id_username" 
+                value="{% if form.username.value %}{{form.username.value}}{% endif %}"
+                name="username" 
+                placeholder="Enter your username" required>
+                {% if form.username.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show">{{form.username.errors}}</div>
+                {% endif %}
             </div>
 
             <!-- Номер телефона с укороченной шириной -->
-            <div class="col-md-4">
-                <label for="phone" class="form-label">Phone Number</label>
-                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
+            <div class="col-md-6">
+                <label for="id_phone_number" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="id_phone_number"
+                value="{% if form.phone_number.value %}{{form.phone_number.value}}{% endif %}"
+                name="phone_number" 
+                placeholder="Enter your phone number" required>
+                {% if form.phone_number.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show">{{form.phone_number.errors}}</div>
+                {% endif %}
             </div>
-
-            <!-- Пустое пространство для выравнивания -->
-            <div class="col-md-2"></div>
 
             <!-- Пароль и подтверждение пароля в одной строке -->
             <div class="col-md-6">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                <label for="id_password1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password1"
+                value="{% if form.password1.value %}{{form.password1.value}}{% endif %}"
+                name="password1" 
+                placeholder="Enter your password" required>
+                {% if form.password1.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show">{{form.password1.errors}}</div>
+                {% endif %}
             </div>
             <div class="col-md-6">
-                <label for="confirm_password" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Re-enter your password" required>
+                <label for="id_password2" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="id_password2" 
+                value="{% if form.password2.value %}{{form.password2.value}}{% endif %}"
+                name="password2" 
+                placeholder="Re-enter your password" required>
+                {% if form.password2.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show">{{form.password2.errors}}</div>
+                {% endif %}
             </div>
 
             <!-- Большая кнопка регистрации по центру -->
