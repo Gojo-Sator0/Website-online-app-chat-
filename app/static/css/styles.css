@@ -176,3 +176,43 @@
     opacity: 1;
     transform: translateY(0);
 }
+
+
+/* Контейнер чата */
+.chat-container {
+    display: flex; /* Делаем контейнер флекс-контейнером */
+    height: 100vh;
+    background-color: #f5f5f5;
+    padding: 0;
+}
+
+/* Боковая панель */
+.chat-sidebar {
+    background-color: #ffffff;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    padding: 10px !important;
+    flex: 0 0 300px; /* Устанавливаем фиксированную ширину для боковой панели */
+}
+
+/* Вертикальная полоса-разделитель */
+.divider {
+    background-color: #ddd;
+    width: 1px;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    border: none;
+    flex-shrink: 0; /* Не сжимаем разделитель */
+}
+
+/* Окно чата */
+.chat-window {
+    background-color: #ffffff;
+    flex-grow: 1; /* Окно чата будет занимать оставшееся пространство */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px !important;
+}

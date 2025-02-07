@@ -6,7 +6,15 @@
     <div class="row">
         <!-- Боковая панель выбора чатов -->
         <div class="col-md-3 chat-sidebar p-3">
-            <h5 class="sidebar-title">Chats</h5>
+            <!-- Строка поиска и кнопка -->
+            <div class="d-flex align-items-center mb-3">
+                <input type="text" class="form-control me-2" placeholder="Search chats..." aria-label="Search">
+                <button class="btn btn-outline-primary" type="button">
+                    <i class="fas fa-search"></i> <!-- Иконка поиска (Font Awesome) -->
+                </button>
+            </div>
+
+            <!-- Список чатов -->
             <div class="chat-list">
                 <div class="chat-item d-flex align-items-center p-2 mb-2">
                     <img src="{% static 'images/profile-icon.png' %}" alt="User 1" class="profile-icon rounded-circle">
@@ -54,13 +62,14 @@
                 </div>
             </div>
 
+            <!-- Контейнер сообщений -->
             <div class="chat-messages flex-grow-1 d-flex flex-column justify-content-end mb-3">
                 <!-- Полученные сообщения (слева) -->
                 <div class="message received mb-2">
                     <div class="message-text">Hello!</div>
                     <div class="message-time text-muted">10:00 AM</div>
                 </div>
-                <!-- Отправленные сообщения (тоже слева) -->
+                <!-- Отправленные сообщения (справа) -->
                 <div class="message sent mb-2">
                     <div class="message-text">Hi, how are you?</div>
                     <div class="message-time text-muted">10:01 AM</div>
