@@ -1,7 +1,7 @@
 {% load static %}
 {% if message.sender == user %}
     <!-- Отправленные сообщения -->
-    <li>
+    <li class="fade-in-up">
         
         <div class="my-message mb-1 d-flex align-items-end">
             <div class="d-flex align-items-end me-2">
@@ -28,7 +28,7 @@
     </li>
 {% else %}
     <!-- Полученное сообщение -->
-    <li>
+    <li class="fade-in-up">
         <div class="message mb-0 d-flex">
             <!-- Аватарка пользователя -->
             <div class="d-flex align-items-end me-2">
@@ -61,3 +61,4 @@
         </div> 
     </li>
 {% endif %} 
+

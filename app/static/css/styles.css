@@ -26,9 +26,9 @@
 
 /* Основные стили для контейнера чата */
 .chat-container {
-    height: 100vh;
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
 .sidebar-title {
@@ -88,9 +88,13 @@
 }
 
 .chat-messages {
-    flex-grow: 1;
-    overflow-y: auto;
+    height: 70vh;  /* Фиксированная высота окна чата */
+    overflow-y: auto;  /* Включаем вертикальную прокрутку */
+    display: flex;
+    flex-direction: column-reverse; /* Новые сообщения внизу */
+    padding-bottom: 10px; /* Защитный отступ снизу */
 }
+
 
 .message > * {
     margin-bottom: 0;
@@ -180,16 +184,16 @@
     padding: 1px !important;
 }
 
+/* Стили для сообщений */
 .fade-in {
     opacity: 0;
     transform: translateY(100px); /* Увеличил сдвиг */
     transition: opacity 1.5s ease-out, transform 1.5s ease-out;
 }
 
+/* Показываем элементы с классом .fade-in, если у них есть класс .visible */
 .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
 }
-
-
 

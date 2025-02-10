@@ -86,7 +86,8 @@
                 <form id="chat_message_form" class="d-flex" 
                     hx-post="{% url 'chat:chats' %}" 
                     hx-target="#chat_messages"
-                    hx-swap="beforeend">
+                    hx-swap="beforeend"
+                    _="on htmx:afterRequest reset() me">
 
                     {% csrf_token %}
                     
