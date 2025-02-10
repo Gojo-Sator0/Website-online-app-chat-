@@ -76,75 +76,18 @@
             <div class="chat-messages flex-grow-1 d-flex flex-column justify-content-end mb-3">                                             
                 <ul id="chat_messages" class="list-unstyled d-flex flex-column justify-content-end">
                     {% for message in chat_messages reversed %}
-                        {% if message.sender == user %}
-                            <!-- Отправленные сообщения -->
-                            <li>
-                                
-                                <div class="my-message mb-1 d-flex align-items-end">
-                                    <div class="d-flex align-items-end me-2">
-                                        <a href="">
-                                            {% if user.image %}
-                                                <img src="{{message.sender.image.url}}" alt="User 1" class="profile-icon rounded-circle border border-secondary" width="32" height="32">
-                                            {% else %}
-                                                <img src="{% static 'images/profile-icon.png' %}" alt="User 1" class="profile-icon rounded-circle border border-secondary" width="32" height="32">
-                                            {% endif %}
-                                        </a>
-                                    </div>
-                                    <!-- "Хвостик" сообщения -->
-                                    <div class="d-flex align-items-end">
-                                        <svg height="13" width="8">
-                                            <path fill="#C2DBFE" d="M2.8,13L8,13L8,0.2C7.1,5.5,6.5,8.7,1.7,10.4C-1.6,11.5,1,13,2.8,13z"></path>
-                                        </svg>
-                                    </div>
-                                    <!-- Тело сообщения -->
-                                    <div class="bg-primary bg-opacity-25 p-2 rounded-end rounded-top-start" style="max-width: 75%;">
-                                        <div class="message-text">{{message.context}}</div>
-                                        <div class="message-time text-muted">10:01 AM</div>
-                                    </div>                                                                       
-                                </div>
-                            </li>
-                        {% else %}
-                            <!-- Полученное сообщение -->
-                            <li>
-                                <div class="message mb-0 d-flex">
-                                    <!-- Аватарка пользователя -->
-                                    <div class="d-flex align-items-end me-2">
-                                        <a href="">
-                                            {% if message.sender.image %}
-                                                <img src="{{message.sender.image.url}}" alt="User 1" class="profile-icon rounded-circle border border-secondary" width="32" height="32">
-                                            {% else %}
-                                                <img src="{% static 'images/profile-icon.png' %}" alt="User 1" class="profile-icon rounded-circle border border-secondary" width="32" height="32">
-                                            {% endif %}
-                                        </a>
-                                    </div>
-                                    
-                                    <!-- "Хвостик" сообщения -->
-                                    <div class="d-flex align-items-end">
-                                        <svg height="13" width="8">
-                                            <path fill="#DADCDE" d="M2.8,13L8,13L8,0.2C7.1,5.5,6.5,8.7,1.7,10.4C-1.6,11.5,1,13,2.8,13z"></path>
-                                        </svg>
-                                    </div>
-                                    
-                                    <!-- Тело сообщения -->
-                                    <div class="bg-secondary p-2 bg-opacity-25 rounded-end rounded-top-start" style="max-width: 75%;">
-                                        <div class="message-text">{{message.context}}</div>
-                                        <div class="message-time text-muted">10:02 AM</div>
-                                    </div>
-                                </div>
-                                <!-- Имя и никнейм пользователя -->
-                                <div class="text-dark fs-6 fw-light mt-1 ms-5">
-                                    <span>{{message.sender.first_name}}</span>
-                                    <span class="text-secondary">@{{message.sender.username}}</span>
-                                </div> 
-                            </li>
-                        {% endif %}                                                                    
+                        {% include "chat/chat_message.html" %}                                                                   
                     {% endfor %}
                 </ul>
             </div>
 
             <!-- Поле ввода сообщения -->
             <div class="chat-input">
-                <form action="{% url "chat:chats" %}" class="d-flex" method="POST">
+                <form id="chat_message_form" class="d-flex" 
+                    hx-post="{% url 'chat:chats' %}" 
+                    hx-target="#chat_messages"
+                    hx-swap="beforeend">
+
                     {% csrf_token %}
                     
                     <input type="text" class="form-control" placeholder="Type your message..." name="context" id="id_context" required>

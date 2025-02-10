@@ -10,19 +10,19 @@ def chats_view(request):
     chat_messages = chat_group.messages.all()[:50]
     form = ChatmessageCreateForm()
 
-    if request.method == 'POST':
+    if request.htmx:
         form = ChatmessageCreateForm(request.POST)
         if form.is_valid():
             message = form.save(commit=False)
             message.sender = request.user
             message.chat = chat_group
             message.save()
-            return redirect('chat:chats')
+            context = {
+                'message': message,
+                'user': request.user,
+            }
+            return render(request, 'chat/includes/chat_message_p.html', context )
         
-    context = {
-        
-    }
-        
-    return render(request, 'chat/chat_user.html', {'chat_messages': chat_messages,'form':form} )
+    return render(request, 'chat/chat_user.html', {'chat_messages': chat_messages, 'form': form,} )
 
 
