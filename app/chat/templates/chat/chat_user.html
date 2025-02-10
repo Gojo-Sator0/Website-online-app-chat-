@@ -56,7 +56,7 @@
         <div class="col-md-8 chat-window p-3 d-flex flex-column">
 
             <!-- Шапка чата -->
-            <div class="chat-header d-flex align-items-center mb-3">
+            <div class="chat-header d-flex align-items-center">
                 <div>
                     <h5 class="mb-0">public_chat</h5>
                     <div class="flex justify-center text-emerald-400 bg-gray-800 p-2 sticky top-0 z-10">
@@ -73,7 +73,7 @@
             </div> {% endcomment %}
 
            <!-- Контейнер сообщений -->
-            <div class="chat-messages flex-grow-1 d-flex flex-column justify-content-end mb-3">                                             
+            <div class="chat-messages flex-grow-1 d-flex flex-column">                                             
                 <ul id="chat_messages" class="list-unstyled d-flex flex-column justify-content-end">
                     {% for message in chat_messages reversed %}
                         {% include "chat/chat_message.html" %}                                                                   

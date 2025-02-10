@@ -84,7 +84,6 @@
     border-bottom: 1px solid #ddd;
     padding: 5px 0 5px 10px; /* Внутренний отступ (слева 10px) */
     margin-top: 10px; /* Отступ сверху */
-    margin-left: 20px; /* Смещение контента */
 }
 
 .chat-messages {
@@ -92,7 +91,7 @@
     overflow-y: auto;  /* Включаем вертикальную прокрутку */
     display: flex;
     flex-direction: column-reverse; /* Новые сообщения внизу */
-    padding-bottom: 10px; /* Защитный отступ снизу */
+    padding-bottom: 0px;
 }
 
 
