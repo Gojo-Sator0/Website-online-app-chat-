@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("✅ JavaScript загружен!");
 
     // Добавляем анимацию при загрузке страницы
     let elements = document.querySelectorAll(".fade-in");
@@ -13,8 +12,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// При выходе из аккаунта
-function logout() {
-    sessionStorage.setItem("loggedOut", "true");
-    // Дополнительный код для выхода из аккаунта
+function scrollToBottom() {
+    let chatMessages = document.querySelector(".chat-messages");
+    if (chatMessages) {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
 }
+
+document.addEventListener("htmx:afterSwap", function(event) {
+    scrollToBottom();
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    scrollToBottom();
+});

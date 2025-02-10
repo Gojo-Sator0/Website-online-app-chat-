@@ -22,7 +22,7 @@
             <!-- Тело сообщения -->
             <div class="bg-primary bg-opacity-25 p-2 rounded-end rounded-top-start" style="max-width: 75%;">
                 <div class="message-text">{{message.context}}</div>
-                <div class="message-time text-muted">10:01 AM</div>
+                <div class="message-time text-muted">{{message.timestamp.time|time:"H:i"}} AM</div>
             </div>                                                                       
         </div>
     </li>
@@ -51,7 +51,7 @@
             <!-- Тело сообщения -->
             <div class="bg-secondary p-2 bg-opacity-25 rounded-end rounded-top-start" style="max-width: 75%;">
                 <div class="message-text">{{message.context}}</div>
-                <div class="message-time text-muted">10:02 AM</div>
+                <div class="message-time text-muted">{{message.timestamp.time|time:"H:i"}} AM</div>
             </div>
         </div>
         <!-- Имя и никнейм пользователя -->

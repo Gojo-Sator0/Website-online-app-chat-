@@ -73,7 +73,7 @@
             </div> {% endcomment %}
 
            <!-- Контейнер сообщений -->
-            <div class="chat-messages flex-grow-1 d-flex flex-column">                                             
+            <div id='chat_container' class="chat-messages flex-grow-1 d-flex flex-column">                                             
                 <ul id="chat_messages" class="list-unstyled d-flex flex-column justify-content-end">
                     {% for message in chat_messages reversed %}
                         {% include "chat/chat_message.html" %}                                                                   
