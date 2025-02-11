@@ -19,10 +19,12 @@ function scrollToBottom() {
     }
 }
 
-document.addEventListener("htmx:afterSwap", function(event) {
+// Обработка события htmx:oobAfterSwap
+document.addEventListener("htmx:oobAfterSwap", function(event) {
     scrollToBottom();
 });
 
+// Обработка события DOMContentLoaded
 document.addEventListener("DOMContentLoaded", function() {
     scrollToBottom();
 });
