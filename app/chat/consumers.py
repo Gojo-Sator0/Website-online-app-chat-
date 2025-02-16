@@ -18,6 +18,11 @@ class ChatConsumer(WebsocketConsumer):
             self.chatroom_name, self.channel_name
         )
 
+        # Онлайн трекер
+        if self.user not in self.chatroom.users_online.all():
+            self.chatroom.users_online.add(self.user)
+            self.update_online_count() 
+
         # Принимаем WebSocket-соединение
         self.accept()
 
@@ -25,6 +30,10 @@ class ChatConsumer(WebsocketConsumer):
         async_to_sync(self.channel_layer.group_discard)(
             self.chatroom_name, self.channel_name
         )
+        # Онлайн трекер
+        if self.user in self.chatroom.users_online.all():
+            self.chatroom.users_online.remove(self.user)
+            self.update_online_count() 
 
     def receive(self, text_data):
         # Преобразуем полученные данные из JSON в словарь Python
@@ -57,4 +66,19 @@ class ChatConsumer(WebsocketConsumer):
         # Рендерим HTML-шаблон с использованием подготовленного контекста
         html = render_to_string("chat/includes/chat_message_p.html", context=context)
         # Отправляем отрендеренный HTML обратно клиенту через WebSocket
+        self.send(text_data=html)
+
+    def update_online_count(self):
+        online_count = self.chatroom.users_online.count() -1
+
+        event = {
+            'type':'online_count_handler',
+            'online_count':online_count
+        }
+
+        async_to_sync(self.channel_layer.group_send)(self.chatroom_name, event)
+
+    def online_count_handler(self, event):
+        online_count = event['online_count']
+        html = render_to_string("chat/includes/online_count.html", {'online_count':online_count})
         self.send(text_data=html)

@@ -13,7 +13,7 @@ class ChatRoom(models.Model):
 
     name = models.CharField(max_length=255, verbose_name='Название', blank=True, null=True)
     chat_type = models.CharField(max_length=10, choices=CHAT_TYPES, default=PRIVATE, verbose_name='Тип чата')
-    participants = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name='Участники', related_name='chat_rooms')
+    users_online = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name='Участники', related_name='online_in_group', blank=True)
 
     class Meta: 
         db_table = 'chat_room'

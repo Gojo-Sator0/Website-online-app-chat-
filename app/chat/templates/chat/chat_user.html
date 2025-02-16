@@ -5,46 +5,53 @@
 <div class="container-fluid chat-container">
     <div class="row">
         <!-- Боковая панель выбора чатов -->
-        <div class="col-md-3 chat-sidebar p-3">
+        <div class="col-md-3 chat-sidebar p-3 bg-light border-end">
             <!-- Строка поиска и кнопка -->
-            <div class="d-flex align-items-center mb-3">
-                <input type="text" class="form-control me-2" placeholder="Search chats..." aria-label="Search">
-                <button class="btn btn-outline-primary" type="button">
+            <div class="d-flex align-items-center mb-4">
+                <input type="text" class="form-control rounded-pill me-2" placeholder="Search chats..." aria-label="Search">
+                <button class="btn btn-primary rounded-pill" type="button">
                     <i class="fas fa-search"></i> <!-- Иконка поиска (Font Awesome) -->
                 </button>
             </div>
 
             <!-- Список чатов -->
             <div class="chat-list">
-                <div class="chat-item d-flex align-items-center p-2 mb-2">
-                    <img src="{% static 'images/profile-icon.png' %}" alt="User 1" class="profile-icon rounded-circle">
-                    <div class="chat-info ms-2">
+                <!-- Элемент чата -->
+                <div class="chat-item d-flex align-items-center p-3 mb-2 bg-white rounded shadow-sm">
+                    <img src="{% static 'images/profile-icon.png' %}" alt="User 1" class="profile-icon rounded-circle me-3" width="50" height="50">
+                    <div class="chat-info flex-grow-1">
                         <div class="username fw-bold">User 1</div>
-                        <div class="last-message text-muted">Hey, how are you?</div>
+                        <div class="last-message text-muted small">Hey, how are you?</div>
                     </div>
-                    <span class="unread-count">2</span>
+                    <span class="unread-count badge bg-primary rounded-pill">2</span>
                 </div>
-                <div class="chat-item d-flex align-items-center p-2 mb-2">
-                    <img src="{% static 'images/profile-icon.png' %}" alt="User 2" class="profile-icon rounded-circle">
-                    <div class="chat-info ms-2">
+
+                <!-- Элемент чата -->
+                <div class="chat-item d-flex align-items-center p-3 mb-2 bg-white rounded shadow-sm">
+                    <img src="{% static 'images/profile-icon.png' %}" alt="User 2" class="profile-icon rounded-circle me-3" width="50" height="50">
+                    <div class="chat-info flex-grow-1">
                         <div class="username fw-bold">User 2</div>
-                        <div class="last-message text-muted">Good morning!</div>
+                        <div class="last-message text-muted small">Good morning!</div>
                     </div>
                 </div>
-                <div class="chat-item d-flex align-items-center p-2 mb-2">
-                    <img src="{% static 'images/profile-icon.png' %}" alt="User 3" class="profile-icon rounded-circle">
-                    <div class="chat-info ms-2">
+
+                <!-- Элемент чата -->
+                <div class="chat-item d-flex align-items-center p-3 mb-2 bg-white rounded shadow-sm">
+                    <img src="{% static 'images/profile-icon.png' %}" alt="User 3" class="profile-icon rounded-circle me-3" width="50" height="50">
+                    <div class="chat-info flex-grow-1">
                         <div class="username fw-bold">User 3</div>
-                        <div class="last-message text-muted">Let's meet up later.</div>
+                        <div class="last-message text-muted small">Let's meet up later.</div>
                     </div>
                 </div>
-                <div class="chat-item d-flex align-items-center p-2 mb-2">
-                    <img src="{% static 'images/profile-icon.png' %}" alt="User 4" class="profile-icon rounded-circle">
-                    <div class="chat-info ms-2">
+
+                <!-- Элемент чата -->
+                <div class="chat-item d-flex align-items-center p-3 mb-2 bg-white rounded shadow-sm">
+                    <img src="{% static 'images/profile-icon.png' %}" alt="User 4" class="profile-icon rounded-circle me-3" width="50" height="50">
+                    <div class="chat-info flex-grow-1">
                         <div class="username fw-bold">User 4</div>
-                        <div class="last-message text-muted">See you soon!</div>
+                        <div class="last-message text-muted small">See you soon!</div>
                     </div>
-                    <span class="unread-count">1</span>
+                    <span class="unread-count badge bg-primary rounded-pill">1</span>
                 </div>
             </div>
         </div>
@@ -60,7 +67,7 @@
                 <div>
                     <h5 class="mb-0">public_chat</h5>
                     <div class="flex justify-center text-emerald-400 bg-gray-800 p-2 sticky top-0 z-10">
-                        <span id="online-count" class="pr-1">3</span> online
+                        <span id="online-count" class="pr-1"></span> online
                     </div>
                 </div>
             </div>
