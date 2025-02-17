@@ -50,7 +50,7 @@ def profile_view(request, username):
             form = UserProfileForm(data=request.POST, instance=request.user, files=request.FILES)
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect(reverse('user_profile', args=[request.user.username]))
+                return HttpResponseRedirect(reverse('accounts:profile', args=[request.user.username]))
         else:
             form = UserProfileForm(instance=request.user)
     else:
