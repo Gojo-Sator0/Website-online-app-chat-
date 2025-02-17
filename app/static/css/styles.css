@@ -35,6 +35,20 @@
     color: #333;
     font-weight: 600;
     margin-bottom: 15px;
+    overflow: hidden; /* Скрываем полосу прокрутки */
+}
+
+
+
+.hover-bg-light {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    transform-origin: left center; /* Увеличиваем элемент относительно левого края */
+}
+
+.hover-bg-light:hover {
+    background-color: #f8f9fa !important;
+    transform: scale(1.02) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .chat-list {
