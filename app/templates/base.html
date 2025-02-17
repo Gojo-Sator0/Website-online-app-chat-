@@ -22,7 +22,7 @@
                 <ul class="navbar-nav ms-auto align-items-center">
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center" href="{% url 'accounts:profile' %}">
+                            <a class="nav-link d-flex align-items-center" href="{% url 'accounts:profile' username=user.username %}">
                                 <img src="{% if user.image %}{{ user.image.url }}{% else %}{% static 'images/profile-icon.png' %}{% endif %}" 
                                     alt="Profile" 
                                     class="rounded-circle" 

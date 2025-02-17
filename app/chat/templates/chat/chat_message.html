@@ -5,7 +5,7 @@
         
         <div class="my-message mb-1 d-flex align-items-end">
             <div class="d-flex align-items-end me-2">
-                <a href="">
+                <a href="{% url 'accounts:profile' username=user.username %}">
                     {% if user.image %}
                         <img src="{{message.sender.image.url}}" alt="User 1" class="profile-icon rounded-circle border border-secondary" width="32" height="32">
                     {% else %}
@@ -32,7 +32,7 @@
         <div class="message mb-0 d-flex">
             <!-- Аватарка пользователя -->
             <div class="d-flex align-items-end me-2">
-                <a href="">
+                <a href="{% url 'accounts:profile' username=message.sender.username %}">
                     {% if message.sender.image %}
                         <img src="{{message.sender.image.url}}" alt="User 1" class="profile-icon rounded-circle border border-secondary" width="32" height="32">
                     {% else %}

@@ -6,7 +6,7 @@
     <div class="profile-container text-center p-4 shadow-lg rounded bg-white" style="max-width: 500px; width: 100%;">
         
         <!-- Форма редактирования профиля -->
-        <form action="{% url 'accounts:profile' %}" method="post" enctype="multipart/form-data" class="mt-4">
+        <form action="{% url 'accounts:profile' username=user.username %}" method="post" enctype="multipart/form-data" class="mt-4">
             {% csrf_token %}
         
             <!-- Аватар пользователя -->
