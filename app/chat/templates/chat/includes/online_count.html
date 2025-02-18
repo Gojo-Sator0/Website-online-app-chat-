@@ -12,3 +12,10 @@
         }
     </style>
 </span>
+
+{% if online_count %}
+    <span id="online-bool" class="text-success pr-1">Online</span>
+{% else %}
+    <span id="online-bool" class="pr-1">Offline</span>
+{% endif %}
+

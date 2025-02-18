@@ -1,19 +1,14 @@
 from django.db import models
 from django.conf import settings
+import shortuuid
 # Create your models here.
 
 class ChatRoom(models.Model):
-    PRIVATE = 'private'
-    GROUP = 'group'
-
-    CHAT_TYPES = (
-        (PRIVATE, 'Private'),
-        (GROUP, 'Group'),
-    )
-
-    name = models.CharField(max_length=255, verbose_name='Название', blank=True, null=True)
-    chat_type = models.CharField(max_length=10, choices=CHAT_TYPES, default=PRIVATE, verbose_name='Тип чата')
+    
+    name = models.CharField(max_length=255, verbose_name='Название', blank=True, null=True, default=shortuuid.uuid)
     users_online = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name='Участники', related_name='online_in_group', blank=True)
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='chat_groups', blank=True)
+    is_private = models.BooleanField(default=False)
 
     class Meta: 
         db_table = 'chat_room'

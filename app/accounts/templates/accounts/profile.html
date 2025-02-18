@@ -100,7 +100,9 @@
                 <button type="submit" class="btn btn-danger w-100">Выйти</button>
             </form>
         {%else%}
-            <button type="submit" class="btn btn-primary w-100">Send message</button>
+            <a href="{% url "chat:start-chat" username=profile_user.username %}">
+                <button type="submit" class="btn btn-primary w-100">Send message</button>
+            </a>
         {% endif %}
     </div>
 </div>

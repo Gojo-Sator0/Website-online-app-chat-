@@ -6,96 +6,40 @@
     <div class="row flex-nowrap">
         <!-- Боковая панель выбора чатов -->
         <div class="col-md-3 chat-sidebar p-0 bg-white border-end">
-            <!-- Заголовок и поиск -->
-            <div class="p-3 border-bottom">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                            <i class="fas fa-user text-white"></i>
-                        </div>
-                        <h5 class="mb-0">Chats</h5>
-                    </div>
-                    <i class="fas fa-cog text-muted"></i>
-                </div>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-search"></i></span>
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-            </div>
-
-            <!-- Список чатов -->
-            <div class="overflow-y-auto" style="height: calc(100vh - 145px);">
-                <!-- Элемент чата -->
-                <a href="" class="text-decoration-none text-dark">
-                    <div class="d-flex align-items-center p-3 border-bottom hover-bg-light">
-                        <div class="position-relative me-3">
-                            <img src="{% static 'images/profile-icon.png' %}" alt="User 1" class="rounded-circle" style="width: 50px; height: 50px;">
-                            <div class="online-dot"></div>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h6 class="mb-0">User 1</h6>
-                            <p class="text-muted small mb-0">Hey, how are you?</p>
-                        </div>
-                        <span class="text-muted small">10:06 AM</span>
-                    </div>
-                </a>
-
-                <!-- Элемент чата -->
-                <a href="" class="text-decoration-none text-dark">
-                    <div class="d-flex align-items-center p-3 border-bottom hover-bg-light">
-                        <div class="position-relative me-3">
-                            <img src="{% static 'images/profile-icon.png' %}" alt="User 2" class="rounded-circle" style="width: 50px; height: 50px;">
-                            <div class="online-dot"></div>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h6 class="mb-0">User 2</h6>
-                            <p class="text-muted small mb-0">Good morning!</p>
-                        </div>
-                        <span class="text-muted small">9:45 AM</span>
-                    </div>
-                </a>
-                <!-- Элемент чата -->
-                <a href="" class="text-decoration-none text-dark">
-                    <div class="d-flex align-items-center p-3 border-bottom hover-bg-light">
-                        <div class="position-relative me-3">
-                            <img src="{% static 'images/profile-icon.png' %}" alt="User 3" class="rounded-circle" style="width: 50px; height: 50px;">
-                        </div>
-                        <div class="flex-grow-1">
-                            <h6 class="mb-0">User 3</h6>
-                            <p class="text-muted small mb-0">Let's meet up later.</p>
-                        </div>
-                        <span class="text-muted small">Yesterday</span>
-                    </div>
-                </a>
-
-                <!-- Элемент чата -->
-                <a href="" class="text-decoration-none text-dark">
-                    <div class="d-flex align-items-center p-3 border-bottom hover-bg-light">
-                        <div class="position-relative me-3">
-                            <img src="{% static 'images/profile-icon.png' %}" alt="User 4" class="rounded-circle" style="width: 50px; height: 50px;">
-                            <div class="online-dot"></div>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h6 class="mb-0">User 4</h6>
-                            <p class="text-muted small mb-0">See you soon!</p>
-                        </div>
-                        <span class="text-muted small">10:06 AM</span>
-                    </div>
-                </a>
-            </div>
+            {% include "chat/chats_list.html" %}
         </div>
 
         <!-- Окно чата -->
         <div class="col-md-9 chat-window p-3 d-flex flex-column" style="min-width: 0;">
+            
             <!-- Шапка чата -->
-            <div class="chat-header d-flex align-items-center mb-3">
-                <div>
-                    <h5 class="mb-0"></h5>
-                    <div class="flex justify-center text-emerald-400 bg-gray-800 p-2 sticky top-0 z-10">
-                        <span id="online-count" class="pr-1"></span> online
+            {% if other_user %}
+                <div class="chat-header d-flex align-items-center justify-content-between">
+                    <!-- Левая часть: аватар и информация -->
+                    <div class="d-flex align-items-center">
+                        <img src="{{ other_user.image.url }}" alt="User 1" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+                        <div>
+                            <h5 class="mb-0">{{ other_user.first_name }} {{ other_user.last_name }}</h5>
+                            <div class="text-emerald-400 bg-gray-800 p-2">
+                                <span id="online-bool" class="pr-1"></span> 
+                            </div>
+                        </div>
                     </div>
+                    <i class="fas fa-ellipsis-v text-muted me-5"></i>
                 </div>
-            </div>
+            {% else %}
+                <div class="chat-header d-flex align-items-center justify-content-between">
+                    <div>
+                        <h5 class="mb-0">{{ chatroom_name }}</h5>
+                        <div class="text-emerald-400 bg-gray-800 p-2 sticky top-0 z-10">
+                            <span id="online-count" class="pr-1"></span> online
+                        </div>
+                    </div>
+                    <i class="fas fa-ellipsis-v text-muted me-5"></i>
+                </div>
+            {% endif %}
+            
+            
 
             <!-- Контейнер сообщений -->
             <div id='chat_container' class="chat-messages flex-grow-1 d-flex flex-column" style="overflow-y: auto;">
@@ -111,7 +55,7 @@
                 <form id="chat_message_form" 
                     class="d-flex align-items-center gap-2 rounded p-2"
                     hx-ext="ws"
-                    ws-connect="/ws/chat/public_chat"
+                    ws-connect="/ws/chat/{{chatroom_name}}"
                     ws-send
                     _="on htmx:wsAfterSend reset() me">
 

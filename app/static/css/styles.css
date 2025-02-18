@@ -1,6 +1,6 @@
 
 .navbar {
-    background-color: red; /* Красный фон для navbar */
+    background-color: #001d3d; /* Красный фон для navbar */
 }
 
 .navbar .navbar-brand,
@@ -98,7 +98,6 @@
 .chat-header {
     border-bottom: 1px solid #ddd;
     padding: 5px 0 5px 10px; /* Внутренний отступ (слева 10px) */
-    margin-top: 10px; /* Отступ сверху */
 }
 
 .chat-messages {
