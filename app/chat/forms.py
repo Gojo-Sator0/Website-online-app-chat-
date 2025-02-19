@@ -8,3 +8,11 @@ class ChatmessageCreateForm(ModelForm):
         fields = ['context']
         
         context = forms.CharField()
+
+class NewGroupForm(ModelForm):
+    class Meta:
+        model = ChatRoom
+        fields = ['groupchat_name']
+        
+        groupchat_name = forms.CharField()
+        

@@ -17,9 +17,14 @@
                 <div class="chat-header d-flex align-items-center justify-content-between">
                     <!-- Левая часть: аватар и информация -->
                     <div class="d-flex align-items-center">
-                        <img src="{{ other_user.image.url }}" alt="User 1" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+                        <a href="{% url 'accounts:profile' username=other_user.username %}">
+                            <img src="{{ other_user.image.url }}" alt="User 1" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+                        </a>
                         <div>
+                            
+                           
                             <h5 class="mb-0">{{ other_user.first_name }} {{ other_user.last_name }}</h5>
+
                             <div class="text-emerald-400 bg-gray-800 p-2">
                                 <span id="online-bool" class="pr-1"></span> 
                             </div>
@@ -30,7 +35,12 @@
             {% else %}
                 <div class="chat-header d-flex align-items-center justify-content-between">
                     <div>
-                        <h5 class="mb-0">{{ chatroom_name }}</h5>
+                        {% if chat_group.groupchat_name %}
+                            <h5 class="mb-0">{{chat_group.groupchat_name}}</h5>
+                        {% else %}
+                            <h5 class="mb-0">{{ chatroom_name }}</h5>
+                        {% endif %}
+
                         <div class="text-emerald-400 bg-gray-800 p-2 sticky top-0 z-10">
                             <span id="online-count" class="pr-1"></span> online
                         </div>
@@ -62,7 +72,7 @@
                     {% csrf_token %}
 
                     <i class="fas fa-paperclip text-muted fs-4"></i>
-                    <input type="text" class="form-control flex-grow-1" placeholder="Type a message..." name="context" id="id_context" required>
+                        <input type="text" class="form-control flex-grow-1" placeholder="Type a message..." name="context" id="id_context" required>
                     <i class="far fa-smile text-muted fs-4"></i>
                     <button class="btn btn-primary d-flex align-items-center justify-content-center">
                         <i class="fas fa-paper-plane fs-5"></i>

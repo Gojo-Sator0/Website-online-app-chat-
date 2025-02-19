@@ -6,6 +6,8 @@ import shortuuid
 class ChatRoom(models.Model):
     
     name = models.CharField(max_length=255, verbose_name='Название', blank=True, null=True, default=shortuuid.uuid)
+    groupchat_name = models.CharField(max_length=255, verbose_name='Название', blank=True, null=True)
+    admin = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='group_chat', blank=True, null=True, on_delete=models.SET_NULL)
     users_online = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name='Участники', related_name='online_in_group', blank=True)
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='chat_groups', blank=True)
     is_private = models.BooleanField(default=False)
