@@ -5,30 +5,37 @@ from django.contrib.auth import get_user_model
 from .models import *
 from .forms import *
 
-# Представление для отображения чата
-@login_required  
-def chats_view(request, chatroom_name='GlobalChat'):
-    chat_group = get_object_or_404(ChatRoom, name=chatroom_name)  # Получаем объект чата или возвращаем 404, если чат не найден
-    chat_messages = chat_group.messages.all()[:50]  # Получаем последние 50 сообщений из чата
-    form = ChatmessageCreateForm()  # Создаем форму для отправки сообщений
-    user_chatrooms = request.user.chat_groups.all()  # Получаем все чаты, в которых участвует текущий пользователь
+@login_required
+def chats_view(request, chatroom_name=None):
+    user_chatrooms = request.user.chat_groups.all()
 
-    # Если чат приватный, проверяем, что пользователь является его участником
-    other_user = None
+    # Если у пользователя нет чатов, показываем сообщение
+    if not user_chatrooms.exists():
+        return render(request, "chat/no_chats.html")
+
+    # Если чат не указан, переадресуем в первый доступный
+    if chatroom_name is None:
+        return redirect("chat:chatroom", chatroom_name=user_chatrooms.first().name)
+
+    # Получаем чат (без проверки участников)
+    chat_group = get_object_or_404(ChatRoom, name=chatroom_name)
+
+    # Проверка доступа
     if chat_group.is_private:
         if request.user not in chat_group.members.all():
-            raise Http404()  # Если пользователь не участник, возвращаем 404
-        for member in chat_group.members.all():
-            if member != request.user:
-                other_user = member
-                break
-
-    # Если это групповой чат, добавляем пользователя в участники, если он еще не участник
-    if chat_group.groupchat_name:
+            raise Http404()  # Приватные чаты только для участников
+    else:
         if request.user not in chat_group.members.all():
-            chat_group.members.add(request.user)
+            chat_group.members.add(request.user)  # Автоматически добавляем в групповой чат
 
-    # Обработка удаления чата (для приватных чатов оба пользователя могут удалить)
+    chat_messages = chat_group.messages.all()[:50]
+    form = ChatmessageCreateForm()
+
+    other_user = None
+    if chat_group.is_private:
+        other_user = chat_group.members.exclude(id=request.user.id).first()
+
+        # Обработка удаления чата (для приватных чатов оба пользователя могут удалить)
     if request.method == "POST" and "delete_chat" in request.POST:
         if chat_group.is_private and request.user in chat_group.members.all():
             chat_group.delete()  # Удаляем чат
@@ -50,19 +57,18 @@ def chats_view(request, chatroom_name='GlobalChat'):
             }
             # Возвращаем HTML-фрагмент с новым сообщением
             return render(request, 'chat/includes/chat_message_p.html', context)
-    
-    # Подготавливаем контекст для передачи в шаблон
-    context = {
-        'chat_messages': chat_messages,
-        'form': form,
-        'other_user': other_user,
-        'chatroom_name': chatroom_name,
-        'user_chatrooms': user_chatrooms,
-        'chat_group': chat_group,
-    }
 
-    # Рендерим шаблон с переданным контекстом
-    return render(request, 'chat/chat_user.html', context)
+    context = {
+        "chat_messages": chat_messages,
+        "form": form,
+        "other_user": other_user,
+        "chatroom_name": chatroom_name,
+        "user_chatrooms": user_chatrooms,
+        "chat_group": chat_group,
+    }
+    return render(request, "chat/chat_user.html", context)
+
+
 
 # Получаем модель пользователя
 User = get_user_model()

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container text-center mt-5">
+    <h2>You have no chats yet</h2>
+    <p>Start a conversation by creating a new chat.</p>
+    <a href="{% url 'chat:new-groupchat' %}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Create Chat
+    </a>
+</div>
+{% endblock %}
