@@ -1,0 +1,10 @@
+<ul class="list-group mt-3">
+    {% for user in users %}
+        <li class="list-group-item d-flex align-items-center">
+            <img src="{{ user.profile.image.url }}" class="rounded-circle me-2" width="40" height="40" alt="Avatar">
+            <a href="{% url 'accounts:profile' user.username %}" class="text-decoration-none text-dark">{{ user.username }}</a>
+        </li>
+    {% empty %}
+        <li class="list-group-item text-muted">No users found</li>
+    {% endfor %}
+</ul>

@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
@@ -164,3 +164,14 @@ def chatroom_leave_view(request, chatroom_name):
         chat_group.save()
 
     return redirect("chat:chats")  # Перенаправляем на страницу со списком чатов
+
+def search_users(request):
+    query = request.GET.get('query', '').strip()
+    if query:
+        users = User.objects.filter(username__icontains=query)[:5]  # Поиск до 5 пользователей
+        users_data = [
+            {"username": user.username, "profile_url": f"/profile/{user.username}/", "avatar": user.image.url if user.image else "/static/images/default-avatar.png"}
+            for user in users
+        ]
+        return JsonResponse(users_data, safe=False)
+    return JsonResponse([], safe=False)
