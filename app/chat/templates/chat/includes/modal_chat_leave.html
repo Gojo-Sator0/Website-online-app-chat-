@@ -1,0 +1,23 @@
+<!-- Модальное окно для выхода из чата -->
+<div class="modal fade" id="leaveChatModal" tabindex="-1" aria-labelledby="leaveChatModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="leaveChatModalLabel">Leave Chat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to leave this chat? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <!-- Кнопка отмены -->
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <!-- Кнопка подтверждения выхода -->
+                <form method="post" action="{% url 'chat:chatroom-leave' chat_group.name %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Leave Chat</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -147,3 +147,14 @@ def chatroom_edit_view(request, chatroom_name):
         "chat_group": chat_group,
     }
     return render(request, "chat/edit_chatroom.html", context)
+
+@login_required
+def chatroom_leave_view(request, chatroom_name):
+    chat_group = get_object_or_404(ChatRoom, name=chatroom_name)
+
+    # Проверяем, что пользователь является участником чата
+    if request.user in chat_group.members.all():
+        chat_group.members.remove(request.user)  # Удаляем пользователя из участников
+        chat_group.save()
+
+    return redirect("chat:chats")  # Перенаправляем на страницу со списком чатов

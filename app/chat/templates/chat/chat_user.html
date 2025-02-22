@@ -67,11 +67,18 @@
                         <!-- Выпадающий список -->
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li><a class="dropdown-item" href="{% url "chat:edit-group" chat_group.name %}" id="createGroup">Edit</a></li>
+                            {% if chat_group.members.exists %}
+                                <li>
+                                    <!-- Кнопка для открытия модального окна -->
+                                    <button type="button" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#leaveChatModal">
+                                        Leave Chat
+                                    </button>
+                                </li>
+                            {% endif %}       
 
-                            {% if user == chat_group.admin %}
-                                <li><a class="dropdown-item text-danger" href="" id="addUser">Delete chat</a></li>
-                            {% endif %}
                         </ul>
+                        <!-- Подключение модального окна (вне списка) -->
+                        {% include "chat/includes/modal_chat_leave.html" %}
                     </div>
                     
                     
@@ -111,4 +118,6 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
+
