@@ -30,8 +30,16 @@
                             </div>
                         </div>
                     </div>
-                    <i class="fas fa-ellipsis-v text-muted me-5"></i>
+                    <div class="dropdown">
+                        <!-- Иконка без треугольника -->
+                        <i class="fas fa-ellipsis-v text-muted me-5" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <!-- Выпадающий список -->
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item text-danger" href="" id="addUser">Delete chat</a></li>
+                        </ul>
+                    </div>
                 </div>
+                
             {% else %}
                 <div class="chat-header d-flex align-items-center justify-content-between">
                     <div>
@@ -45,7 +53,21 @@
                             <span id="online-count" class="pr-1"></span> online
                         </div>
                     </div>
-                    <i class="fas fa-ellipsis-v text-muted me-5"></i>
+                    <div class="dropdown">
+
+                        <!-- Иконка без треугольника -->
+                        <i class="fas fa-ellipsis-v text-muted me-5" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <!-- Выпадающий список -->
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="{% url "chat:edit-group" chat_group.name %}" id="createGroup">Edit</a></li>
+
+                            {% if user == chat_group.admin %}
+                                <li><a class="dropdown-item text-danger" href="" id="addUser">Delete chat</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    
+                    
                 </div>
             {% endif %}
             

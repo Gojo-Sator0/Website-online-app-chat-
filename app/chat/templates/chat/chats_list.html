@@ -9,15 +9,17 @@
             <h5 class="mb-0">Chats</h5>
         </div>
         <div class="dropdown">
-            <!-- Иконка -->
-            <i class="fas fa-cog text-muted dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
+            <!-- Иконка без треугольника -->
+            <i class="fas fa-cog text-muted" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
         
             <!-- Выпадающий список -->
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="" id="addUser">Добавить пользователя</a></li>
-                <li><a class="dropdown-item" href="{% url "chat:new-groupchat" %}" id="createGroup">Создать группу чата</a></li>
+                <li><a class="dropdown-item" href="" id="addUser">Add user</a></li>
+                <li><a class="dropdown-item" href="{% url "chat:new-groupchat" %}" id="createGroup">Create group</a></li>
             </ul>
         </div>
+        
+
     </div>
     <div class="input-group">
         <span class="input-group-text"><i class="fas fa-search"></i></span>

@@ -24,6 +24,10 @@ def chats_view(request, chatroom_name='GlobalChat'):
                 other_user = member
                 break
 
+    if chat_group.groupchat_name:
+        if request.user not in chat_group.members.all():
+            chat_group.members.add(request.user)
+
     # Если запрос выполнен с использованием HTMX (AJAX)
     if request.htmx:
         form = ChatmessageCreateForm(request.POST)
@@ -38,6 +42,8 @@ def chats_view(request, chatroom_name='GlobalChat'):
             }
             # Возвращаем HTML-фрагмент с новым сообщением
             return render(request, 'chat/includes/chat_message_p.html', context )
+        
+    
     
     # Подготавливаем контекст для передачи в шаблон
     context = {
@@ -103,3 +109,35 @@ def create_groupchat(request):
         'form': form
     }
     return render(request, 'chat/create_groupchat.html', context)
+
+
+@login_required
+def chatroom_edit_view(request, chatroom_name):
+    chat_group = get_object_or_404(ChatRoom, name=chatroom_name)
+
+   
+    
+    form = ChatRoomEditForm(instance=chat_group)
+
+    if request.method == "POST":
+        # Удаление группы
+        if "delete_chat" in request.POST:
+            chat_group.delete()
+            return redirect("chat:chats")  # Перенаправление на страницу со списком чатов
+
+        # Обновление названия группы и удаление пользователей
+        form = ChatRoomEditForm(request.POST, instance=chat_group)
+        if form.is_valid():
+            form.save()
+            remove_members = request.POST.getlist('remove_members')
+            for member_id in remove_members:
+                member = User.objects.get(id=member_id)
+                chat_group.members.remove(member)
+
+            return redirect('chat:edit-group', chatroom_name)
+    
+    context = {
+        "form": form,
+        "chat_group": chat_group,
+    }
+    return render(request, "chat/edit_chatroom.html", context)

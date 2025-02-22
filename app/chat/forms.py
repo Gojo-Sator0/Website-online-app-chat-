@@ -16,3 +16,9 @@ class NewGroupForm(ModelForm):
         
         groupchat_name = forms.CharField()
         
+class ChatRoomEditForm(ModelForm):
+    class Meta:
+        model = ChatRoom
+        fields = ['groupchat_name']
+        
+        groupchat_name = forms.CharField()

@@ -210,3 +210,6 @@
     transform: translateY(0);
 }
 
+#dropdownMenuButton {
+    cursor: pointer;
+}
