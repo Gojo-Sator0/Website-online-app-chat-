@@ -23,7 +23,8 @@ class ChatRoom(models.Model):
 class Message(models.Model):
     chat = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, verbose_name='Чат', related_name='messages')
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Отправитель')
-    context = models.CharField(verbose_name='Сообщение', max_length=300)
+    context = models.CharField(verbose_name='Сообщение', max_length=300, blank=True, null=True)
+    file = models.FileField(upload_to='chat_files/', verbose_name='Файл', blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Дата отправки')
 
     class Meta:

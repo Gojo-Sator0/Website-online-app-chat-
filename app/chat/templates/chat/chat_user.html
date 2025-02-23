@@ -18,8 +18,19 @@
                     <!-- Левая часть: аватар и информация -->
                     <div class="d-flex align-items-center">
                         <a href="{% url 'accounts:profile' username=other_user.username %}">
-                            <img src="{{ other_user.image.url }}" alt="User 1" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+                            {% if other_user.image and other_user.image.url %}
+                                <img src="{{ other_user.image.url }}" 
+                                     alt="{{ other_user.username }}" 
+                                     class="rounded-circle me-3" 
+                                     style="width: 50px; height: 50px;">
+                            {% else %}
+                                <img src="{% static 'images/profile-icon.png' %}" 
+                                     alt="Default Avatar" 
+                                     class="rounded-circle me-3" 
+                                     style="width: 50px; height: 50px;">
+                            {% endif %}
                         </a>
+                        
                         <div>
                             
                            
@@ -107,13 +118,31 @@
 
                     {% csrf_token %}
 
-                    <i class="fas fa-paperclip text-muted fs-4"></i>
-                        <input type="text" class="form-control flex-grow-1" placeholder="Type a message..." name="context" id="id_context" required>
-                    <i class="far fa-smile text-muted fs-4"></i>
+                    <!-- Поле для загрузки файла -->
+                    <input type="file" name="file" id="id_file" style="display: none;" onchange="document.getElementById('chat_file_form').submit();">
+                    <label for="id_file" class="cursor-pointer">
+                        <i class="fas fa-paperclip text-muted fs-4"></i>
+                    </label>
+
+                    <!-- Поле ввода сообщения -->
+                    <input type="text" class="form-control flex-grow-1" placeholder="Type a message..." name="context" id="id_context" required>
+
+                    <!-- Кнопка отправки сообщения -->
                     <button class="btn btn-primary d-flex align-items-center justify-content-center">
                         <i class="fas fa-paper-plane fs-5"></i>
                     </button>
                 </form>
+
+                <!-- Форма для отправки файла (скрытая) -->
+                <form id="chat_file_form" enctype="multipart/form-data" style="display: none;"
+                    hx-post="{% url "chat-file-upload" chat_group.name %}"
+                    hx-target="#chat_messages"
+                    hx-swap="beforeend"
+                    _="on htmx:beforeSend reset() me">
+                    {% csrf_token %}
+                    <input type="file" name="file" id="id_file_hidden">
+                </form>
+                
             </div>
         </div>
     </div>

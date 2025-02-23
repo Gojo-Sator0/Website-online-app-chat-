@@ -66,7 +66,17 @@
                     {% if chatroom.is_private %}
                         {% for member in chatroom.members.all %}
                             {% if member != request.user %}
-                                <img src="{{ member.image.url }}" alt="{{ member.username }}" class="rounded-circle" style="width: 50px; height: 50px;">
+                                {% if member.image %}
+                                    <img src="{{ member.image.url }}" 
+                                        alt="{{ member.username }}" 
+                                        class="rounded-circle" style="width: 50px; height: 50px;">
+                                {% else %}
+                                    <img src="{% static 'images/profile-icon.png' %}" 
+                                        alt="User Avatar" 
+                                        class="rounded-circle shadow" 
+                                        width="50" height="50">
+                                {% endif %}
+                        
                             {% endif %}
                         {% endfor %}
                     {% else %}
