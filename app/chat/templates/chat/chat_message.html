@@ -21,8 +21,7 @@
             </div>
             <!-- Тело сообщения -->
             <div class="bg-primary bg-opacity-25 p-2 rounded-end rounded-top-start" style="max-width: 75%;">
-                <div class="message-text">{{message.context}}</div>
-                <div class="message-time text-muted">{{message.timestamp.time|time:"H:i"}} AM</div>
+                {% include "chat/includes/message_content.html" %}
             </div>                                                                       
         </div>
     </li>
@@ -50,8 +49,7 @@
             
             <!-- Тело сообщения -->
             <div class="bg-secondary p-2 bg-opacity-25 rounded-end rounded-top-start" style="max-width: 75%;">
-                <div class="message-text">{{message.context}}</div>
-                <div class="message-time text-muted">{{message.timestamp.time|time:"H:i"}} AM</div>
+                {% include "chat/includes/message_content.html" %}
             </div>
         </div>
         <!-- Имя и никнейм пользователя -->

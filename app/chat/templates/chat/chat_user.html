@@ -109,39 +109,69 @@
 
             <!-- Поле ввода сообщения -->
             <div class="chat-input p-2">
-                <form id="chat_message_form" 
-                    class="d-flex align-items-center gap-2 rounded p-2"
-                    hx-ext="ws"
-                    ws-connect="/ws/chat/{{chatroom_name}}"
-                    ws-send
-                    _="on htmx:wsAfterSend reset() me">
-
-                    {% csrf_token %}
-
-                    <!-- Поле для загрузки файла -->
-                    <input type="file" name="file" id="id_file" style="display: none;" onchange="document.getElementById('chat_file_form').submit();">
-                    <label for="id_file" class="cursor-pointer">
-                        <i class="fas fa-paperclip text-muted fs-4"></i>
-                    </label>
-
-                    <!-- Поле ввода сообщения -->
-                    <input type="text" class="form-control flex-grow-1" placeholder="Type a message..." name="context" id="id_context" required>
-
-                    <!-- Кнопка отправки сообщения -->
-                    <button class="btn btn-primary d-flex align-items-center justify-content-center">
-                        <i class="fas fa-paper-plane fs-5"></i>
-                    </button>
-                </form>
-
-                <!-- Форма для отправки файла (скрытая) -->
-                <form id="chat_file_form" enctype="multipart/form-data" style="display: none;"
-                    hx-post="{% url "chat-file-upload" chat_group.name %}"
-                    hx-target="#chat_messages"
-                    hx-swap="beforeend"
-                    _="on htmx:beforeSend reset() me">
-                    {% csrf_token %}
-                    <input type="file" name="file" id="id_file_hidden">
-                </form>
+                
+                <div class="d-flex align-items-center gap-2 rounded p-2">
+                    <!-- Форма для отправки сообщений -->
+                    <form id="chat_message_form" 
+                          class="flex-grow-1 d-flex align-items-center gap-2" 
+                          hx-ext="ws" 
+                          ws-connect="/ws/chat/{{chatroom_name}}" 
+                          ws-send 
+                          _="on htmx:wsAfterSend reset() me" 
+                          method="POST">
+                        
+                        {% csrf_token %}
+                        
+                        <!-- Label и input для файла с исправленным выравниванием -->
+                        <label for="file_input" class="cursor-pointer d-flex align-items-center m-0">
+                            <i class="fas fa-paperclip text-muted fs-4"></i>
+                        </label>
+                        
+                        <!-- Поле ввода сообщения -->
+                        <input type="text" 
+                               class="form-control w-100" 
+                               placeholder="Type a message..." 
+                               name="context" 
+                               id="id_context" 
+                               required>
+                        
+                        <!-- Кнопка отправки сообщения -->
+                        <button type="submit" 
+                                class="btn btn-primary d-flex align-items-center justify-content-center">
+                            <i class="fas fa-paper-plane fs-5"></i>
+                        </button>
+                    </form>
+                
+                    <!-- Форма для отправки файла -->
+                    <form id="chat_file_form" 
+                          enctype="multipart/form-data" 
+                          hx-encoding="multipart/form-data"
+                          hx-post="{% url 'chat:chat-file-upload' chat_group.name %}"
+                          hx-target="#chat_messages"
+                          hx-swap="beforeend"
+                          hx-trigger="change from:#file_input"
+                          method="POST">
+                        
+                        {% csrf_token %}
+                        <input type="file" 
+                               name="file" 
+                               id="file_input" 
+                               class="d-none">
+                    </form>
+                </div>
+                
+                <script>
+                document.getElementById('chat_file_form').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                });
+                
+                document.getElementById('file_input').addEventListener('change', function(e) {
+                    if (this.files && this.files[0]) {
+                        htmx.trigger('#chat_file_form', 'change');
+                    }
+                });
+                </script>
+                    
                 
             </div>
         </div>

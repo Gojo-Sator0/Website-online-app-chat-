@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from django.conf import settings
 import shortuuid
@@ -33,5 +34,15 @@ class Message(models.Model):
         verbose_name_plural = 'Сообщения'
         ordering = ['-timestamp']
 
+    @property
+    def filename(self):
+        if self.file:
+            return os.path.basename(self.file.name)
+        else:
+            return None
+
     def __str__(self):
-        return f"{self.sender.username}: {self.context[:20]}"
+        if self.context:
+            return f"{self.sender.username}: {self.context[:20]}"
+        elif self.file:
+            return f"{self.sender.username}: {self.filename}"

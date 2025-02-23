@@ -1,0 +1,14 @@
+{% if message.context %}
+    <div class="message-text">{{ message.context }}</div>
+    <div class="message-time text-muted">{{ message.timestamp|date:"H:i A" }}</div>
+{% elif message.file %}
+    <img class="message-image" src="{{ message.file.url }}" alt="Message file">
+{% endif %}
+
+<style>
+    .message-image {
+        max-width: 300px;  /* Ограничение ширины */
+        height: auto;      /* Сохраняет пропорции */
+        max-height: 500px; /* Ограничение высоты */
+    }  
+</style>

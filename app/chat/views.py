@@ -1,7 +1,9 @@
-from django.http import Http404, JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 from .models import *
 from .forms import *
 
@@ -175,3 +177,26 @@ def search_users(request):
         ]
         return JsonResponse(users_data, safe=False)
     return JsonResponse([], safe=False)
+
+def chat_file_upload(request, chatroom_name):
+    chat_group = get_object_or_404(ChatRoom, name=chatroom_name)
+
+    if request.method == "POST" and request.FILES.get('file'):
+        file = request.FILES['file']
+        message = Message.objects.create(
+            file=file,
+            sender=request.user,
+            chat=chat_group,
+        )
+
+        # Отправляем сообщение в WebSocket
+        channel_layer = get_channel_layer()
+        event = {
+            'type': 'message_handler',
+            'message_id': message.id,
+        }
+        async_to_sync(channel_layer.group_send)(
+            chatroom_name, event
+        )
+
+    return HttpResponse(status=204)

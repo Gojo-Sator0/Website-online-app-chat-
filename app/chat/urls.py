@@ -13,4 +13,5 @@ urlpatterns = [
     path('chat/chatroom-leave/<str:chatroom_name>/', views.chatroom_leave_view, name='chatroom-leave'),  # Выход из чата
     path('chat/new-groupchat/', views.create_groupchat, name='new-groupchat'),  # Создание группы
     path('chat/user/<str:username>/', views.get_or_create_chatroom, name='start-chat'),  # Приватный чат с пользователем
+    path('chat/fileupload/<str:chatroom_name>', views.chat_file_upload, name='chat-file-upload'),  
 ]
