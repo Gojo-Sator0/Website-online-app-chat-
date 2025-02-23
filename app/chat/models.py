@@ -46,3 +46,11 @@ class Message(models.Model):
             return f"{self.sender.username}: {self.context[:20]}"
         elif self.file:
             return f"{self.sender.username}: {self.filename}"
+        
+    @property
+    def is_image(self):
+        if self.filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp')):
+            return True
+        else:
+            return False
+            

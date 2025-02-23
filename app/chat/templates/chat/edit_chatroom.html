@@ -22,8 +22,17 @@
                 {% for member in chat_group.members.all %}
                     <div class="list-group-item d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
-                            <img src="{{ member.image.url }}" alt="Avatar" class="rounded-circle me-2" style="width: 40px; height: 40px;">
-                            <span>{{ member.profile.name }} @{{ member.username }} {% if member == chat_group.admin %}(Admin){% endif %}</span>
+                            {% if member.image %}
+                                <img src="{{ member.image.url }}" 
+                                    alt="{{ member.username }}" 
+                                    class="rounded-circle" style="width: 40px; height: 40px;">
+                            {% else %}
+                                <img src="{% static 'images/profile-icon.png' %}" 
+                                    alt="User Avatar" 
+                                    class="rounded-circle me-2" 
+                                    width="40" height="40">
+                            {% endif %}
+                            <span> {{ member.profile.name }} @{{ member.username }} {% if member == chat_group.admin %}(Admin){% endif %}</span>
                         </div>
                         {% if member != chat_group.admin and request.user == chat_group.admin %}
                             <!-- Кастомный чекбокс с крестиком -->

@@ -2,7 +2,11 @@
     <div class="message-text">{{ message.context }}</div>
     <div class="message-time text-muted">{{ message.timestamp|date:"H:i A" }}</div>
 {% elif message.file %}
-    <img class="message-image" src="{{ message.file.url }}" alt="Message file">
+    {% if message.is_image %}
+        <img class="message-image" src="{{ message.file.url }}" alt="Message file">
+    {% else %}
+        &#x1F4CE; <a class='cursor-pointer italic hover:underline' href="{{message.file.url}}" download>{{message.filename}}</a>
+    {% endif %}
 {% endif %}
 
 <style>
