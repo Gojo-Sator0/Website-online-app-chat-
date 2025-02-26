@@ -37,7 +37,7 @@
 
 ```sh
 # Клонируем репозиторий
-git clone https://github.com/yourusername/django-chat-app.git
+https://github.com/Gojo-Sator0/Website-online-app-chat-.git
 
 # Устанавливаем зависимости
 pip install -r requirements.txt
